@@ -1,3 +1,7 @@
-# news_ticker
+# <news_ticker> Element
 
-![video preview](https://github.com/apparatusone/news_ticker/blob/main/readme_img/ticker.gif?raw=true)
+<p align="center">
+  <img src ="docs/ticker.gif"/>
+</p>
+
+A news ticker styled web component that fetches from newsdata.io.
