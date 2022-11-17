@@ -1,9 +1,8 @@
-const api_key = 'your_api_key'
+const api_key = ''
 
 const template = document.createElement('template');
 template.innerHTML = `
 <style>
-
     :host {
         --width-ticker: 300px;
         --height-ticker: 35px;
@@ -22,14 +21,13 @@ template.innerHTML = `
         width: var(--width-ticker);
         height: var(--height-ticker);
         font-size: var(--font-size-ticker);
-        padding: 0;
         align-items: center;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: pre;
         transition: all 220ms ease-in-out;
-        border: 2px solid black;
-        border-radius: 5px;
+        border: 1px solid black;
+        //  border-radius: 5px;
     }
 
     #ticker:hover > .class-id { 
@@ -77,8 +75,6 @@ class NewsTicker extends HTMLElement {
         document.head.appendChild(ibm);
     }
 
-    
-
     connectedCallback() {
         this.shadowRoot.host.style.setProperty('--width-ticker', this.getAttribute('width') || "300px")
         this.shadowRoot.host.style.setProperty('--height-ticker', this.getAttribute('height') || "35px")
@@ -90,14 +86,17 @@ class NewsTicker extends HTMLElement {
         this.render();
     }
 
-    render(){
-
-    }
+    render(){}
 
     get textLength() {
         const width = this.main.getBoundingClientRect().width
         return width;
     }
+
+    //theme ( theme ) {
+        // billboard
+        // future
+    //}
 
     offset () {
         this.shadowRoot.host.style.setProperty('--offset-ticker', `${this.textLength}px`)
@@ -109,7 +108,7 @@ class NewsTicker extends HTMLElement {
 
     update () {
         getNews().then(data => {
-            const spacer = '    •    '
+            const spacer = '   •   '
             for (let i = 0; i < data.results.length; i++) {
 
                 const link = document.createElement("a");
@@ -136,7 +135,7 @@ class NewsTicker extends HTMLElement {
 
 let response;
 async function getNews() {
-    const Url = `https://newsdata.io/api/1/news?apikey=${api_key}&country=en`
+    const Url = `https://newsdata.io/api/1/news?apikey=${api_key}&country=us,pl&language=en&category=top,world,technology,politics`
     response = await fetch(Url);
     if (!response.ok) return
     console.log('success')
@@ -144,8 +143,9 @@ async function getNews() {
     return data
 }
 
-
 window.customElements.define('news-ticker', NewsTicker);
 let a = document.getElementById("ticker")
 a.update();
+
+
 
